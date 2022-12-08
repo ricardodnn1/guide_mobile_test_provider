@@ -1,4 +1,5 @@
 ﻿import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:guidemobileprov/app/home/controller/home_controller.dart';
 import 'package:guidemobileprov/app/home/model/trading_sessions_model.dart';
 import 'package:guidemobileprov/shared/extensions/extensions.dart';
@@ -22,29 +23,46 @@ class HomeView extends StatelessWidget {
         color: Colors.green,
         height: 80,
         child: Center(
-           child: ElevatedButton(
-             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black38
-             ),
-             onPressed: () {
-                Navigator.of(context).pushNamed('/home/trading');
-             },
-             child: const Padding(
-               padding: EdgeInsets.all(8.0),
-               child: Text("Visualizar Gráfico"),
+           child: SizedBox(
+             width: 200,
+             child: ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black38
+               ),
+               onPressed: () {
+                  Navigator.of(context).pushNamed('/home/trading');
+               },
+               child: Padding(
+                 padding: EdgeInsets.all(8.0),
+                 child: Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                   children: [
+                     Text("Visualizar Gráfico"),
+                     Icon(Icons.show_chart)
+                   ],
+                 ),
+               ),
              ),
            ),
         ),
       ),
       body: Container(
-        color: Color(0xFFEEEEEE),
+        padding: const EdgeInsets.all(10),
+        color: const Color(0xFFEEEEEE),
         child: controller.tradingSessionsList.length > 0 ? ListView.builder(
             itemCount: controller.tradingSessionsList.length,
             itemBuilder: (_, index) {
               final TradingSessionsModel item = controller.tradingSessionsList[index];
-              return ListTile(
-                title: Text(DateFormat('dd/MM/yyyy').format(DateTime.parse(item.dataTrading!.parseDateTime()))),
-                subtitle: Text('Cotação: ${item.quotationValue!.toStringAsFixed(4)}'),
+              return Container(
+                margin: EdgeInsets.only(bottom: 8),
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(8)
+                ),
+                child: ListTile(
+                  title: Text(DateFormat('dd/MM/yyyy').format(DateTime.parse(item.dataTrading!.parseDateTime())), style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600 ,color: Colors.black)),
+                  subtitle: Text('Cotação: ${item.quotationValue!.toStringAsFixed(4)}', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w500 ,color: Colors.black)),
+                ),
               );
             },
           ) : Center(child: CircularProgressIndicator()),  
