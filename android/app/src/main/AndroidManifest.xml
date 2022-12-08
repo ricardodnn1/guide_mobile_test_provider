@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.guidemobile_provider">
+    package="com.example.guidemobileprov">
    <application
-        android:label="guidemobile_provider"
+        android:label="guidemobileprov"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

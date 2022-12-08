@@ -1,4 +1,4 @@
-package com.example.guidemobile_provider
+package com.example.guidemobileprov
 
 import io.flutter.embedding.android.FlutterActivity
 

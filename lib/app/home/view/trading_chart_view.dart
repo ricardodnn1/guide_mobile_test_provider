@@ -1,30 +1,22 @@
 ﻿import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:guidemobile_provider/app/home/presenter/controller/home_controller.dart';
+import 'package:guidemobileprov/app/home/controller/home_controller.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
-class HomeChartPage extends StatefulWidget {
-  const HomeChartPage({super.key});
+class TradingChartView extends StatefulWidget {
+  const TradingChartView({super.key});
 
   @override
-  State<HomeChartPage> createState() => _HomeChartPageState();
+  State<TradingChartView> createState() => _TradingChartViewState();
 }
 
-class _HomeChartPageState extends State<HomeChartPage> {
-  late HomeController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = Provider.of<HomeController>(context, listen: false);
-  }
-
+class _TradingChartViewState extends State<TradingChartView> {
+ final controller = HomeController();
+ 
   List<Color> colors = [
     Color(0xFF3F51B5),
-  ];
+  ]; 
   
-   
   List<FlSpot> dataChart = []; 
   List dataComplete = [];
   double maxX = 0;
@@ -39,7 +31,7 @@ class _HomeChartPageState extends State<HomeChartPage> {
 
   setDados() async {
     loaded.value = false;
-    var list = await controller.getAllTradingDtChart();
+    var list = await controller.tradingSessionsList;
     dataChart = [];
 
     if(list.length > 0 && list.isNotEmpty) {
@@ -133,7 +125,7 @@ class _HomeChartPageState extends State<HomeChartPage> {
       final size = MediaQuery.of(context).size; 
       real = NumberFormat.currency(locale: locale['locale'], name: locale['name']);
       setDados();  
-      
+ 
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.green,
@@ -167,16 +159,15 @@ class _HomeChartPageState extends State<HomeChartPage> {
                               : const Center(
                                   child: CircularProgressIndicator(),
                                   );
-                          },
-                        ),
-                      ),
-                    ],
+                      },
+                    ),
                   ),
-                ),
+                ],
+              ),
             ),
           ),
         ),
-      );
-    } 
+      ),
+    );
   }
- 
+}
