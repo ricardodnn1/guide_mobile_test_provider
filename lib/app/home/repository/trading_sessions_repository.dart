@@ -1,4 +1,4 @@
-﻿import 'package:guidemobileprov/app/home/models/trading_sessions_model.dart';
+﻿import 'package:guidemobileprov/app/home/model/trading_sessions_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 

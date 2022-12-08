@@ -1,6 +1,6 @@
 ﻿import 'package:flutter/material.dart';
 import 'package:guidemobileprov/app/home/controller/home_controller.dart';
-import 'package:guidemobileprov/app/home/models/trading_sessions_model.dart';
+import 'package:guidemobileprov/app/home/model/trading_sessions_model.dart';
 import 'package:guidemobileprov/shared/extensions/extensions.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
