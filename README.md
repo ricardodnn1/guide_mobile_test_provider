@@ -1,16 +1,25 @@
-# guidemobileprov
+# Teste técnico para desenvolvedor mobile Flutter.
 
-A new Flutter project.
+Objetivo do teste: Implementar a consulta da api https://query2.finance.yahoo.com/v8/finance/chart/PETR4.SA e exibir os ultimos 30 pregões. 
 
-## Getting Started
+# :hammer: Funcionalidades do projeto
 
-This project is a starting point for a Flutter application.
+ - `Funcionalidade 1`: Consulta exibição em lista dos últimos 30 pregões
+ - `Funcionalidade 2`: Exibir gráfico dos últimos 30 pregões
 
-A few resources to get you started if this is your first Flutter project:
+# :hammer: Design Pattern:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+ - `1`: MVC. 
+ 
+ # :hammer: Packages utilizdos:
+ 
+ - `1`: Provider (Injeção de dependências, Gerenciamento de estado).
+ - `2`: http (Requisições HTTP).
+ - `3`: Intl e flutter_localization (Conversão de data e moeda no padrão BR).
+ - `4`: fl_chart (Gerar gráfico).
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# :hammer: Comandos para executar o aplicativo no emulador:
+- `1`: flutter clean
+- `2`: flutter pub get
+- `3`: flutter run
+ 
