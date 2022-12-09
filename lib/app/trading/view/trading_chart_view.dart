@@ -1,6 +1,7 @@
 ﻿import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:guidemobileprov/app/trading/controller/trading_controller.dart';
+import 'package:guidemobileprov/app/trading/model/trading_sessions_model.dart';
 import 'package:intl/intl.dart';
 
 class TradingChartView extends StatefulWidget {
@@ -11,14 +12,15 @@ class TradingChartView extends StatefulWidget {
 }
 
 class _TradingChartViewState extends State<TradingChartView> {
- final controller = HomeController();
- 
+  final controller = HomeController();
+  
   List<Color> colors = const [
     Color(0xFF3F51B5),
   ]; 
   
   List<FlSpot> dataChart = []; 
   List dataComplete = [];
+  List<TradingSessionsModel> list = [];
   double maxX = 0;
   double maxY = 0;
   double minY = 0;
@@ -31,8 +33,12 @@ class _TradingChartViewState extends State<TradingChartView> {
   ValueNotifier<bool> loaded = ValueNotifier(false);
 
   setDados() async {
-    loaded.value = false;
-    var list = await controller.tradingSessionsList;
+    loaded.value = false;  
+    if(controller.tradingSessionsList.isEmpty) {
+      await controller.getTradingSessionsList(); 
+    }
+    
+    list = controller.tradingSessionsList;
     dataChart = [];
 
     if(list.length > 0 && list.isNotEmpty) {
@@ -115,11 +121,16 @@ class _TradingChartViewState extends State<TradingChartView> {
     );
   }
 
-   getDate(int index) {
+  getDate(int index) {
     DateTime date = dataComplete[index][1];
     return DateFormat('dd/MM/y').format(date);
   }
- 
+  
+  @override
+  void initState() {
+    controller.cleanList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

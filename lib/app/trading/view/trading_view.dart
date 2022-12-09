@@ -11,7 +11,7 @@ class TradingView extends StatelessWidget {
 
   @override
    Widget build(BuildContext context) { 
-     final controller = context.watch<HomeController>();
+     final controller = context.watch<HomeController>(); 
      print(controller.tradingSessionsList.length);
 
      return Scaffold(

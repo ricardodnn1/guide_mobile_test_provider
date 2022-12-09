@@ -16,4 +16,10 @@ class HomeController extends ChangeNotifier {
       tradingSessionsList = await repository.getTradingSessions();
       notifyListeners();
     }
+
+    cleanList() async {
+      tradingSessionsList = [];
+      notifyListeners();
+    }
+   
 }
