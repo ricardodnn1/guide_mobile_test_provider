@@ -13,10 +13,11 @@ Objetivo do teste: Implementar a consulta da api https://query2.finance.yahoo.co
  
  # :hammer: Packages utilizdos:
  
- - `1`: Provider (Injeção de dependências, Gerenciamento de estado).
+ - `1`: Provider (Injeção de dependências).
  - `2`: http (Requisições HTTP).
  - `3`: Intl e flutter_localization (Conversão de data e moeda no padrão BR).
  - `4`: fl_chart (Gerar gráfico).
+ - `5`: Gerenciamento de estado com (ChangeNotifier e NotifyListeners)
 
 # :hammer: Comandos para executar o aplicativo no emulador:
 - `1`: flutter clean
