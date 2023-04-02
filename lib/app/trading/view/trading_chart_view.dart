@@ -13,18 +13,18 @@ class TradingChartView extends StatefulWidget {
 
 class _TradingChartViewState extends State<TradingChartView> {
   final controller = HomeController();
-  
+
   List<Color> colors = const [
     Color(0xFF3F51B5),
-  ]; 
-  
-  List<FlSpot> dataChart = []; 
+  ];
+
+  List<FlSpot> dataChart = [];
   List dataComplete = [];
   List<TradingSessionsModel> list = [];
   double maxX = 0;
   double maxY = 0;
   double minY = 0;
-  
+
   Map<String, String> locale = {
     'locale': 'pt_BR',
     'name': 'R\$',
@@ -33,18 +33,21 @@ class _TradingChartViewState extends State<TradingChartView> {
   ValueNotifier<bool> loaded = ValueNotifier(false);
 
   setDados() async {
-    loaded.value = false;  
-    if(controller.tradingSessionsList.isEmpty) {
-      await controller.getTradingSessionsList(); 
+    loaded.value = false;
+    if (controller.tradingSessionsList.isEmpty) {
+      await controller.getTradingSessionsList();
     }
-    
+
     list = controller.tradingSessionsList;
     dataChart = [];
 
-    if(list.length > 0 && list.isNotEmpty) {
+    if (list.isNotEmpty) {
       dataComplete = list.reversed.map((e) {
-          double quote = e.quotationValue ?? 0; 
-          return [quote, DateTime.fromMillisecondsSinceEpoch(int.parse(e.dataTrading!) * 1000)];
+        double quote = e.quotationValue ?? 0;
+        return [
+          quote,
+          DateTime.fromMillisecondsSinceEpoch(int.parse(e.dataTrading!) * 1000)
+        ];
       }).toList();
 
       maxX = dataComplete.length.toDouble();
@@ -64,7 +67,7 @@ class _TradingChartViewState extends State<TradingChartView> {
       }
     }
 
-    if(dataComplete.length > 0) {
+    if (dataComplete.isNotEmpty) {
       loaded.value = true;
     }
   }
@@ -86,8 +89,8 @@ class _TradingChartViewState extends State<TradingChartView> {
           barWidth: 1,
           dotData: FlDotData(show: true),
           belowBarData: BarAreaData(
-            show: true,  
-            colors: colors.map((color) => color.withOpacity(0.15)).toList(), 
+            show: true,
+            colors: colors.map((color) => color.withOpacity(0.15)).toList(),
           ),
         ),
       ],
@@ -99,7 +102,7 @@ class _TradingChartViewState extends State<TradingChartView> {
               final date = getDate(item.spotIndex);
               return LineTooltipItem(
                 real.format(item.y),
-                TextStyle(
+                const TextStyle(
                   color: Colors.black,
                   fontSize: 15,
                   fontWeight: FontWeight.w600,
@@ -125,7 +128,7 @@ class _TradingChartViewState extends State<TradingChartView> {
     DateTime date = dataComplete[index][1];
     return DateFormat('dd/MM/y').format(date);
   }
-  
+
   @override
   void initState() {
     controller.cleanList();
@@ -134,43 +137,38 @@ class _TradingChartViewState extends State<TradingChartView> {
 
   @override
   Widget build(BuildContext context) {
-      final size = MediaQuery.of(context).size; 
-      real = NumberFormat.currency(locale: locale['locale'], name: locale['name']);
-      setDados();  
- 
-      return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.green,
-          title: const Text("Resultado da variação"), 
-        ),
-        body: Container(
-          height: size.height,
-          color: Colors.grey,
-          child: Center(
-            child: SizedBox(
-              height: size.height / 1.5,
-              child: AspectRatio(
-                aspectRatio: 2,
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: const  [],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 80),
-                      child: ValueListenableBuilder(
-                        valueListenable: loaded,
-                        builder: (context, bool isLoaded, _) {
-                          return (isLoaded)
-                              ? LineChart(
-                                  getChartData(),
-                                )
-                              : const Center(
-                                  child: CircularProgressIndicator(),
-                                  );
+    final size = MediaQuery.of(context).size;
+    real =
+        NumberFormat.currency(locale: locale['locale'], name: locale['name']);
+    setDados();
+
+    return Scaffold(
+      backgroundColor: Colors.grey,
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: const Text('Resultado da variação'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          SizedBox(
+            height: size.height / 1.5,
+            child: AspectRatio(
+              aspectRatio: 2,
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 80),
+                    child: ValueListenableBuilder(
+                      valueListenable: loaded,
+                      builder: (context, bool isLoaded, _) {
+                        return (isLoaded)
+                            ? LineChart(
+                                getChartData(),
+                              )
+                            : const Center(
+                                child: CircularProgressIndicator(),
+                              );
                       },
                     ),
                   ),
@@ -178,7 +176,7 @@ class _TradingChartViewState extends State<TradingChartView> {
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
